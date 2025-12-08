@@ -27,29 +27,30 @@ async function getAllRecords() {
         let language = data.records[i].fields["Language"];
         let briefDescription = data.records[i].fields["BreveDescripcion"];
 
-        newHtml += `
+       newHtml += `
 
-       <article class="col-sm-12 col-md-6 col-lg-4 col-xxl-3">
+       <article class="col-sm-12 col-md-6 col-lg-4 col-xxl-3 justify-content-center">
        <div class = "grid-container">
-          <div class = "card">
-           
+          <div class = "card list-view">
+           <a href="lawyersSpanish.html?id=${data.records[i].id}">
             ${
               lawyer
                 ? `<img class="img-container card-img-top rounded" alt="${name}" src="${lawyer[0].url}">`
                 : ``
             }
-            
+            </a>
             <div class="card-body">
-              <h5 class="card-title">${name}</h5>
+              <h5 class="card-title text-center name"><strong>${name}</strong> </h5>
+              <h4 class="text-center rating">★ ${rating} </h4>
               <p class="card-text">
                 ${briefDescription}
               </p>
               <p class = "text-center">
-              Rating: ${rating}
+              
               </p>
-              <p class = "text-center">
+              <p class = "text-center language">
      
-              ${language}
+             <strong> ${language} </strong>
               </p>
 
             </div>
@@ -81,98 +82,73 @@ async function getOneRecord(id) {
     .then((data) => {
       console.log(data); // response is a single object
 
-      let lawyer = data.records[i].fields["Lawyer"]; // here we are getting column values
-      let name = data.records[i].fields["Name"]; //here we are using the Field ID to fecth the name property
-      let rating = data.records[i].fields["Rating"];
-      let language = data.records[i].fields["Language"];
-      let office = data.records[i].fields["Office"]; // here we are getting column values
-      let website = data.records[i].fields["Website"]; //here we are using the Field ID to fecth the name property
-      let email = data.records[i].fields["Email"];
-      let address = data.records[i].fields["Address"];
-      let phone = data.records[i].fields["Phone"];
-      let description = data.records[i].fields["Descripcion"];
-      let hours = data.records[i].fields["Hours"];
+      let lawyer = data.fields["Lawyer"]; // here we are getting column values
+      let name = data.fields["Name"]; //here we are using the Field ID to fecth the name property
+      let rating = data.fields["Rating"];
+      let language = data.fields["Language"];
+      let office = data.fields["Office"]; // here we are getting column values
+      let website = data.fields["Website"]; //here we are using the Field ID to fecth the name property
+      let email = data.fields["Email"];
+      let address = data.fields["Address"];
+      let phone = data.fields["Phone"];
+      let description = data.fields["Descripcion"];
+      let hours = data.fields["Hours"];
 
       let newHtml = `
-        <div class="card list mb-3">
-  <div class="row g-0">
-    <div class="col-md-4 d-flex justify-content-center align-items-center">
-     ${
-       logo
-         ? `<img class="img-fluid back ms-4" alt="${name}" src="${lawyer[0].url}">`
-         : ``
-     }
-    </div>
-    <div class="col-md-6 d-flex justify-content-center align-items-center desc">
-      <div class="card-body">
-        <h5 class="card-title bar">${name}</h5>
-        <p class="card-text">${description}</p>
-        <p class="card-text">Rating: <small>${rating}</p>
-        <p class="card-text">${address}</p>
-        <a href="${map}" target="_blank"><button type="button" class="btn btn-primary btn-sm">Get Directions</button></a>
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded ">
+    <div class="row g-0">
+      
+      <div class="col-md-4 d-flex flex-column align-items-center p-3 profile-sidebar">
+        ${
+          lawyer
+            ? `<img class="img-fluid rounded-circle shadow mb-3" style="width: 150px; height: 150px; object-fit: cover;" alt="${name}" src="${lawyer[0].url}">`
+            : ``
+        }
+        <h3 class=" mb-1">${name}</h3>
+        <p class="small text-secondary">Abogado/a de Inmigración</p>
+        <p class="badge bg-primary text-wrap fs-6">${language}</p>
+        <div class="rating-info mb-3">
+            <span class=" h5 me-2">★</span>
+            <span class="fs-5">${rating}</span>
+        </div>
+      </div>
+      
+      <div class="col-md-8">
+        <div class="card-body">
+          
+          <h4 class="card-title text-danger border-bottom pb-2 mb-3"><i class="fas fa-info-circle me-2"></i> Descripcion</h4>
+          
+          <p class="card-text">${description}</p>
+          
+          <h4 class="card-title text-danger border-bottom pb-2 mt-4 mb-3"><i class="fas fa-headset me-2"></i> Contacto</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-map-marker-alt me-2 text-danger"></i> <strong>Domicilio:</strong> ${address}</li>
+            <li class="mb-2"><i class="fas fa-phone me-2 text-danger"></i> <strong>Telefono:</strong> <a href="tel:${phone}" class="text-dark">${phone}</a></li>
+            <li class="mb-2"><i class="fas fa-envelope me-2 text-danger"></i> <strong>Correo Electronico:</strong> <a href="mailto:${email}" class="text-dark">${email}</a></li>
+            ${website ? `<li class="mb-2"><i class="fas fa-globe me-2 text-danger"></i> <strong>Sitio Web:</strong> <a href="${website}" target="_blank" class="text-dark">${website}</a></li>` : ''}
+          </ul>
+          
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <h4 class="card-title text-danger border-bottom pb-2 mb-3"><i class="far fa-clock me-2"></i>Horas de Oficina</h4>
+              <p class="card-text">${hours}</p>
+              
+            </div>
+            
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+              ${
+                office
+                  ? `<img class="img-fluid rounded shadow-sm" alt="Office of ${name}" src="${office[0].url}">`
+                  : `<div class="p-4 bg-light text-center rounded">Office Photo N/A</div>`
+              }
+            </div>
+          </div>
+          
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="card list mb-3">
-  <div class="row g-0">
-    <div class="col-md-4 d-flex justify-content-center ">
-    ${
-      picture
-        ? `<img class="img-fluid front" alt="${name}" src="${picture[0].url}">`
-        : ``
-    }
-       </div>
-       <div class="col-md-6 d-flex justify-content-center align-items-center">
-       <div class="card-body">
-       <div class="card-group hours mx-auto">    
-  <div class="card list hours shift">
-    <div class="card-body">
-      <h4 class="card-title">🕔 Hours</h4>
-      <p class="card-text">${formattedString(hours)}</p>
-      
-    </div>
-  </div>
-  <div class="card list hours">
-    <div class="card-body">
-      <h4 class="card-title">😁 🕔 Happy Hours</h4>
-      <p class="card-text">${formattedString(happy)}</p>
-     
-    </div>
-  </div>
-</div>
-<div class="moves">
-<table class="table misc">
-    <tbody>
-    <tr>
-      <th scope="row misc">Neighborhood</th>
-      <td class="card-text">${neighborhood}</td>
-    </tr>
-    <tr>
-      <th scope="row misc">Outdoor Seating</th>
-      <td>${outdoor}</td>
-    </tr>
-    <tr>
-      <th scope="row misc">Food Served</th>
-      <td colspan="2">${formattedString(food)}</td>
-    </tr>
-     <tr>
-      <th scope="row misc">Merchandise</th>
-      <td colspan="2">${formattedString(merchandise)}</td>
-    </tr>
-    <tr>
-      <th scope="row misc">Links</th>
-      <td colspan="2"><a href="${website}" target="_blank"><button type="button" class="btn btn-primary btn-sm go">Website</button></a> <a href="${yelp}" target="_blank"><button type="button" class="btn btn-primary btn-sm go">Yelp</button></a></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-      `;
+`;
 
       jobsResultElement.innerHTML = newHtml;
     });

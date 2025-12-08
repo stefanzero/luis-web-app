@@ -2,11 +2,26 @@ body {
   background: linear-gradient(to bottom right, #090635, #a09797);
 }
 
-p, h1 {
+p,
+h1 {
   color: rgb(255, 255, 255);
 }
+h1{
+  font-family: "Parkinsans", sans-serif;
+  font-size: 4rem;
+}
 
-.description{
+h5, h4{
+  font-family: "Parkinsans", sans-serif;
+}
+
+p{
+  font-family: "Bona Nova SC", serif;
+}
+.language {
+  color: black;
+}
+.description {
   color: white;
 }
 
@@ -45,6 +60,19 @@ ul {
   max-width: 800px;
   background-color: #d32f2f;
 }
+
+.card, .list-view {
+  background-color: white;
+}
+
+.card-text{
+  color:black;
+}
+
+.name, .language, .rating{
+  color:red;
+}
+
 
 .flip-card {
   background-color: transparent;
@@ -110,4 +138,10 @@ ul {
 .img-container {
   aspect-ratio: 4/4;
   overflow: hidden;
+}
+
+hr{
+  color:red;
+  background-color: red;
+  height: 10px;
 }
