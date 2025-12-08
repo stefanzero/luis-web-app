@@ -108,7 +108,7 @@ async function getOneRecord(id) {
         <p class="small text-secondary">Abogado/a de Inmigración</p>
         <p class="badge bg-primary text-wrap fs-6">${language}</p>
         <div class="rating-info mb-3">
-            <span class=" h5 me-2">★</span>
+            <span class="text-warning h5 me-2">★</span>
             <span class="fs-5">${rating}</span>
         </div>
       </div>
